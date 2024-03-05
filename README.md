@@ -1,2 +1,2 @@
-# tree-walk-interpreter-in-rust
-a tree walk interpreter in rust
+# Yow
+a tree walk interpreter programming language written in rust
