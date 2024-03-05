@@ -6,6 +6,8 @@ pub enum TokenType {
   Minus,
   Div,
   Star,
+  OpenParen,
+  CloseParen,
 }
 
 #[derive(Debug, Clone)]

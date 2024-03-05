@@ -32,16 +32,29 @@ impl Parser {
 
   fn get_atom(&mut self) -> Box<dyn Node> {
     if let Some(token) = self.get_token() {
-      if token.token_type != TokenType::Integer && token.token_type != TokenType::Float {
-        panic!("Invalid Number Node");
+      match token.token_type {
+        TokenType::Integer | TokenType::Float => {
+          self.advance();
+          return Box::new(NumberNode {
+            token,
+          });
+        },
+        TokenType::OpenParen => {
+          self.advance();
+          let expr = self.get_expr();
+          if self.get_token().unwrap().token_type != TokenType::CloseParen {
+            panic!("Close parenthesis is missing");
+          }
+          self.advance();
+          return expr;
+        },
+        _ => {
+          panic!("Invalid number node");
+        }
       }
-      self.advance();
-      return Box::new(NumberNode {
-        token,
-      });
     }
 
-    panic!("Invalid Number Node");
+    panic!("Invalid number node");
   }
 
   fn get_term(&mut self) -> Box<dyn Node> {

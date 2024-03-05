@@ -44,6 +44,18 @@ impl Lexer {
               token_value: None,
             });
           },
+          '(' => {
+            tokens.push(Token { 
+              token_type: TokenType::OpenParen,
+              token_value: None,
+            });
+          },
+          ')' => {
+            tokens.push(Token { 
+              token_type: TokenType::CloseParen,
+              token_value: None,
+            });
+          },
           _ if cur.is_numeric() => {
             let (err, num, dot_count) = self.make_number();
             if err != None {
